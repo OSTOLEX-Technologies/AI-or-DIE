@@ -12,11 +12,9 @@ namespace Src
         [SerializeField] private GameObject nodePrefab;
         [SerializeField] private GameObject connectionPrefab;
         [SerializeField] private Transform connectionsParent;
-
-        private void Start()
+        
+        public void BuildTree(UpgradeNode rootUpgradeNode)
         {
-            var upgradesNodeTreeService = new UpgradesNodeTreeService();
-            var rootUpgradeNode = upgradesNodeTreeService.GetTree();
             var rootTransform = Instantiate(nodePrefab, parent: transform).transform;
             rootTransform.position = root.position;
             var currentLevelNodes = new List<UpgradeNode> {rootUpgradeNode};
