@@ -39,6 +39,13 @@ namespace Src
                 _gameState.Date = _gameState.Date.AddDays(1);
             }
         }
+        
+        public void UpdateStatsDecreaseSpeed(int aiDevelopmentDecreaseDelta, int publicTrustDecreaseDelta, int safetyDecreaseDelta)
+        {
+            _aiDevelopmentDecreaseSpeed -= aiDevelopmentDecreaseDelta;
+            _publicTrustDecreaseSpeed -= publicTrustDecreaseDelta;
+            _safetyDecreaseSpeed -= safetyDecreaseDelta;
+        }
     
     }
 }

@@ -25,8 +25,12 @@ namespace Src
       [Header("Dependencies")]
       [SerializeField] private GameStateUpdater gameStateUpdater;
       [SerializeField] private GameStateView gameStateView;
+      [SerializeField] private UpgradesRepository upgradesRepository;
+      [Header("UI Builders")]
+      [SerializeField] private UpgradesTreeUIBuilder developmentUpgradesTreeUIBuilder;
 
       private GameState _gameState;
+      private UpgradeTreesBuilder _upgradeTreesBuilder;
 
       private void Start()
       {
@@ -49,6 +53,10 @@ namespace Src
             publicTrustMaxValue, 
             aiDevelopmentMaxValue, 
             safetyMaxValue);
+         _upgradeTreesBuilder = new UpgradeTreesBuilder(_gameState, gameStateUpdater);
+         var developmentUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Development");
+         var developmentTree = _upgradeTreesBuilder.GetUpgradesTree(developmentUpgradesNodesData);
+         developmentUpgradesTreeUIBuilder.BuildTree(developmentTree);
       }
    }
 }

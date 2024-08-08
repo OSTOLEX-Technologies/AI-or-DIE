@@ -1,22 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
+using Src.UpgradeNodes;
 using UnityEngine;
 
 namespace Src
 {
     public class UpgradesTreeUIBuilder : MonoBehaviour
     {
-        [SerializeField] private Transform root;
+        [SerializeField] private Transform nodesParent;
+        [SerializeField] private Transform rootPosition;
         [SerializeField] private float heightBetweenLevels;
         [SerializeField] private float widthBetweenNodes;
-        [SerializeField] private GameObject nodePrefab;
+        [SerializeField] private UpgradeNodeView nodePrefab;
         [SerializeField] private GameObject connectionPrefab;
         [SerializeField] private Transform connectionsParent;
         
         public void BuildTree(UpgradeNode rootUpgradeNode)
         {
-            var rootTransform = Instantiate(nodePrefab, parent: transform).transform;
-            rootTransform.position = root.position;
+            var rootNodeView = Instantiate(nodePrefab, parent: nodesParent);
+            rootNodeView.Init(rootUpgradeNode);
+            var rootTransform = rootNodeView.transform;
+            rootTransform.position = rootPosition.position;
             var currentLevelNodes = new List<UpgradeNode> {rootUpgradeNode};
             var currentLevelNodesTransforms = new List<Transform> {rootTransform};
             var nextLevelCenter = rootTransform.position;
@@ -35,8 +39,9 @@ namespace Src
             var childrenTransforms = new List<Transform>();
             foreach (var child in children)
             {
-                var childGameObject = Instantiate(nodePrefab, parent: transform);
-                childrenTransforms.Add(childGameObject.transform);
+                var childNodeView = Instantiate(nodePrefab, parent: nodesParent);
+                childNodeView.Init(child);
+                childrenTransforms.Add(childNodeView.transform);
             }
             
             //Aligning next level nodes game objects
