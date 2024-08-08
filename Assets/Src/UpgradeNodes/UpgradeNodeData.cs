@@ -1,4 +1,6 @@
-﻿namespace Src.UpgradeNodes
+﻿using UnityEngine;
+
+namespace Src.UpgradeNodes
 {
     public class UpgradeNodeData
     {
@@ -13,6 +15,8 @@
         public int SafetyDecreaseSpeedDelta { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public Texture2D Image { get; set; }
+        public Texture2D Icon { get; set; }
         
         public override string ToString()
         {

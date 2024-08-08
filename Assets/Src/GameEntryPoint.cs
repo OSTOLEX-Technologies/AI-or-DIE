@@ -1,6 +1,7 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using Src.UpgradeNodes;
 using UnityEngine;
 
 namespace Src
@@ -35,11 +36,11 @@ namespace Src
 
       private GameState _gameState;
       private UpgradeTreesBuilder _upgradeTreesBuilder;
+      private List<UpgradeNodeData> _upgradeNodesData;
 
-      private IEnumerator Start()
+      private async void Start()
       {
          loadingScreen.SetActive(true);
-         yield return new WaitForEndOfFrame();
          _gameState = new GameState
          {
             Cash = initialCash,
@@ -60,16 +61,29 @@ namespace Src
             aiDevelopmentMaxValue, 
             safetyMaxValue);
          _upgradeTreesBuilder = new UpgradeTreesBuilder(_gameState, gameStateUpdater);
-         var developmentUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Development");
+         var developmentUpgradesNodesData = await upgradesRepository.GetUpgradeNodesData("Development");
          var developmentTree = _upgradeTreesBuilder.GetUpgradesTree(developmentUpgradesNodesData);
-         var safetyUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Safety");
+         var safetyUpgradesNodesData = await upgradesRepository.GetUpgradeNodesData("Safety");
          var safetyTree = _upgradeTreesBuilder.GetUpgradesTree(safetyUpgradesNodesData);
-         var publicRelationsUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Public Relations");
+         var publicRelationsUpgradesNodesData = await upgradesRepository.GetUpgradeNodesData("Public Relations");
          var publicRelationsTree = _upgradeTreesBuilder.GetUpgradesTree(publicRelationsUpgradesNodesData);
+         _upgradeNodesData = new List<UpgradeNodeData>();
+         _upgradeNodesData.AddRange(developmentUpgradesNodesData);
+         _upgradeNodesData.AddRange(safetyUpgradesNodesData);
+         _upgradeNodesData.AddRange(publicRelationsUpgradesNodesData);
          developmentUpgradesTreeUIBuilder.BuildTree(developmentTree);
          safetyUpgradesTreeUIBuilder.BuildTree(safetyTree);
          publicRelationsUpgradesTreeUIBuilder.BuildTree(publicRelationsTree);
          loadingScreen.SetActive(false);
+      }
+
+      private void OnDestroy()
+      {
+         foreach (var upgradeNodeData in _upgradeNodesData)
+         {
+            Destroy(upgradeNodeData.Image);
+            Destroy(upgradeNodeData.Icon);
+         }
       }
    }
 }
