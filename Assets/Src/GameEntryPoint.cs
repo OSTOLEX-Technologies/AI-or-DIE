@@ -61,6 +61,7 @@ namespace Src
             aiDevelopmentMaxValue, 
             safetyMaxValue);
          _upgradeTreesBuilder = new UpgradeTreesBuilder(_gameState, gameStateUpdater);
+         upgradesRepository.Init();
          var developmentUpgradesNodesData = await upgradesRepository.GetUpgradeNodesData("Development");
          var developmentTree = _upgradeTreesBuilder.GetUpgradesTree(developmentUpgradesNodesData);
          var safetyUpgradesNodesData = await upgradesRepository.GetUpgradeNodesData("Safety");

@@ -21,17 +21,20 @@ namespace Src
 
         private SheetsService _sheetsService;
         
-        private void Awake()
+        public void Init()
         {
+            Debug.Log("Loading credentials...");
             TextAsset p12 = Resources.Load<TextAsset>(credentailsFileName);
             var certificate = new X509Certificate2(p12.bytes, "notasecret", X509KeyStorageFlags.Exportable);
         
+            Debug.Log("Creating credentials...");
             ServiceAccountCredential credential = new ServiceAccountCredential(
                 new ServiceAccountCredential.Initializer(serviceAccountEmail)
                 {
                     Scopes = new[] { SheetsService.Scope.SpreadsheetsReadonly } 
                 }.FromCertificate(certificate));
-        
+            
+            Debug.Log("Creating service...");
             _sheetsService = new SheetsService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
@@ -40,8 +43,9 @@ namespace Src
 
         public async Task<List<UpgradeNodeData>> GetUpgradeNodesData(string tableName)
         {
+            Debug.Log("Loading upgrade nodes data...");
             SpreadsheetsResource.ValuesResource.GetRequest request = _sheetsService.Spreadsheets.Values.Get(spreadsheetId, tableName);
-            ValueRange response = request.Execute();
+            ValueRange response = await request.ExecuteAsync();
             IList<IList<object>> values = response.Values;
             List<UpgradeNodeData> upgradeNodesData = new List<UpgradeNodeData>();
             if (values != null && values.Count > 0)
