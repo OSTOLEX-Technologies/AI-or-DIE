@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Globalization;
 using UnityEngine;
 
@@ -35,9 +36,10 @@ namespace Src
       private GameState _gameState;
       private UpgradeTreesBuilder _upgradeTreesBuilder;
 
-      private void Start()
+      private IEnumerator Start()
       {
          loadingScreen.SetActive(true);
+         yield return new WaitForEndOfFrame();
          _gameState = new GameState
          {
             Cash = initialCash,

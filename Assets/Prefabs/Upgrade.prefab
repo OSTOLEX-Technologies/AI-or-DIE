@@ -100,7 +100,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7431700735346240741}
         m_TargetAssemblyTypeName: Src.UpgradeNodes.UpgradeNodeView, Assembly-CSharp
-        m_MethodName: Buy
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

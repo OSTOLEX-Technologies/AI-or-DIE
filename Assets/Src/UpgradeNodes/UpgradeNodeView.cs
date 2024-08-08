@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Src.UpgradeNodes
@@ -12,12 +11,18 @@ namespace Src.UpgradeNodes
         [SerializeField] private Image image;
         
         private UpgradeNode _upgradeNode;
+        private UpgradeNodeInfoPanel _infoPanel;
+        private UpgradeNodeBuyButton _buyButton;
+
         
-        public void Init(UpgradeNode upgradeNode)
+        public void Init(UpgradeNode upgradeNode, UpgradeNodeInfoPanel infoPanel, UpgradeNodeBuyButton buyButton)
         {
+            _infoPanel = infoPanel;
+            _buyButton = buyButton;
             _upgradeNode = upgradeNode;
             _upgradeNode.Bought += OnBought;
             _upgradeNode.MadeAvailable += OnMadeAvailable;
+            _buyButton.SetUpgradeNode(_upgradeNode);
             UpdateView();
         }
         
@@ -28,6 +33,7 @@ namespace Src.UpgradeNodes
 
         private void OnBought(UpgradeNode upgradeNode)
         {
+            UpdateInfoPanel();
             UpdateView();
         }
         private void UpdateView()
@@ -46,11 +52,20 @@ namespace Src.UpgradeNodes
             }
         }
         
-        public void Buy()
+        public void OnClick()
         {
-            if (_upgradeNode.IsAvailable)
+            UpdateInfoPanel();
+        }
+
+        private void UpdateInfoPanel()
+        {
+            _buyButton.gameObject.SetActive(true);
+            _infoPanel.gameObject.SetActive(true);
+            _infoPanel.SetDataForNode(_upgradeNode);
+            _buyButton.SetUpgradeNode(_upgradeNode);
+            if (_upgradeNode.IsBought || !_upgradeNode.IsAvailable)
             {
-                _upgradeNode.Buy();
+                _buyButton.gameObject.SetActive(false);
             }
         }
 

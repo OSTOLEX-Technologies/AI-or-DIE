@@ -14,11 +14,13 @@ namespace Src
         [SerializeField] private UpgradeNodeView nodePrefab;
         [SerializeField] private GameObject connectionPrefab;
         [SerializeField] private Transform connectionsParent;
+        [SerializeField] private UpgradeNodeInfoPanel infoPanel;
+        [SerializeField] private UpgradeNodeBuyButton buyButton;
         
         public void BuildTree(UpgradeNode rootUpgradeNode)
         {
             var rootNodeView = Instantiate(nodePrefab, parent: nodesParent);
-            rootNodeView.Init(rootUpgradeNode);
+            rootNodeView.Init(rootUpgradeNode, infoPanel, buyButton);
             var rootTransform = rootNodeView.transform;
             rootTransform.position = rootPosition.position;
             var currentLevelNodes = new List<UpgradeNode> {rootUpgradeNode};
@@ -40,7 +42,7 @@ namespace Src
             foreach (var child in children)
             {
                 var childNodeView = Instantiate(nodePrefab, parent: nodesParent);
-                childNodeView.Init(child);
+                childNodeView.Init(child, infoPanel, buyButton);
                 childrenTransforms.Add(childNodeView.transform);
             }
             
