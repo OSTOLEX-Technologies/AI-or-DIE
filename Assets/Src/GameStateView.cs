@@ -35,7 +35,7 @@ namespace Src
 
         private void UpdateView()
         {
-            cashTextMesh.text = "$" + (_gameState.Cash / 1000) + "K";
+            cashTextMesh.text = "$" + (_gameState.Cash) + "K";
             dateTextMesh.text = _gameState.Date.ToString("MM/dd/yyyy");
             publicTrustSlider.value = _gameState.PublicTrust/(float)_publicTrustMaxValue;
             aiDevelopmentSlider.value = _gameState.AiDevelopment/(float)_aiDevelopmentMaxValue;

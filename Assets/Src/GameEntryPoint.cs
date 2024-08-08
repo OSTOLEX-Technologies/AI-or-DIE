@@ -6,6 +6,7 @@ namespace Src
 {
    public class GameEntryPoint : MonoBehaviour
    {
+      [SerializeField] private GameObject loadingScreen;
       [Header("Initial game state values")]
       [SerializeField] private int initialCash;
       [SerializeField] private int initialPublicTrust;
@@ -28,12 +29,15 @@ namespace Src
       [SerializeField] private UpgradesRepository upgradesRepository;
       [Header("UI Builders")]
       [SerializeField] private UpgradesTreeUIBuilder developmentUpgradesTreeUIBuilder;
+      [SerializeField] private UpgradesTreeUIBuilder safetyUpgradesTreeUIBuilder;
+      [SerializeField] private UpgradesTreeUIBuilder publicRelationsUpgradesTreeUIBuilder;
 
       private GameState _gameState;
       private UpgradeTreesBuilder _upgradeTreesBuilder;
 
       private void Start()
       {
+         loadingScreen.SetActive(true);
          _gameState = new GameState
          {
             Cash = initialCash,
@@ -56,7 +60,14 @@ namespace Src
          _upgradeTreesBuilder = new UpgradeTreesBuilder(_gameState, gameStateUpdater);
          var developmentUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Development");
          var developmentTree = _upgradeTreesBuilder.GetUpgradesTree(developmentUpgradesNodesData);
+         var safetyUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Safety");
+         var safetyTree = _upgradeTreesBuilder.GetUpgradesTree(safetyUpgradesNodesData);
+         var publicRelationsUpgradesNodesData = upgradesRepository.GetUpgradeNodesData("Public Relations");
+         var publicRelationsTree = _upgradeTreesBuilder.GetUpgradesTree(publicRelationsUpgradesNodesData);
          developmentUpgradesTreeUIBuilder.BuildTree(developmentTree);
+         safetyUpgradesTreeUIBuilder.BuildTree(safetyTree);
+         publicRelationsUpgradesTreeUIBuilder.BuildTree(publicRelationsTree);
+         loadingScreen.SetActive(false);
       }
    }
 }
