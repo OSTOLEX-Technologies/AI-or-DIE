@@ -17,7 +17,7 @@ namespace Src
     {
         private const string serviceAccountEmail = "ai-or-die-service-account@ai-or-die.iam.gserviceaccount.com";
         private const string spreadsheetId = "1frM0gL_PZMigqTeWsxSNAw0lJO4wS3eMmiMXXnZTtSk";
-        private const string credentailsFileName = "ai-or-die-a841005cf3df";
+        private const string credentailsFileName = "ai-or-die-f85e0531fb19";
 
         private SheetsService _sheetsService;
         
@@ -73,8 +73,12 @@ namespace Src
                         node.AiDevelopmentDecreaseSpeedDelta = int.Parse(row[8].ToString());
                         node.SafetyDecreaseSpeedDelta = int.Parse(row[9].ToString());
                         node.Description = row[10].ToString();
-                        node.Image = await URLTexturesLoader.LoadTexture(row[11].ToString());
-                        node.Icon = await URLTexturesLoader.LoadTexture(row[12].ToString());
+                        var imageUrl = row[11].ToString();
+                        Debug.Log(imageUrl);
+                        node.Image = await UrlTexturesLoader.LoadTexture(imageUrl);
+                        var iconUrl = row[12].ToString();
+                        Debug.Log(iconUrl);
+                        node.Icon = await UrlTexturesLoader.LoadTexture(iconUrl);
                         upgradeNodesData.Add(node);
                     }
                     catch (Exception e)

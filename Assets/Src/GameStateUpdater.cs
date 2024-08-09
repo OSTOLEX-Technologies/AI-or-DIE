@@ -11,6 +11,7 @@ namespace Src
         private int _safetyDecreaseSpeed;
         private int _oneDayInSeconds;
         private GameState _gameState;
+        private bool _isPaused;
 
         public void Init(GameState gameState, int cashDecreaseSpeed, int publicTrustDecreaseSpeed, int aiDevelopmentDecreaseSpeed, int safetyDecreaseSpeed, int oneDayInSeconds)
         {
@@ -31,6 +32,11 @@ namespace Src
         {
             while (true)
             {
+                if (_isPaused)
+                {
+                    yield return null;
+                    continue;
+                }
                 yield return new WaitForSeconds(_oneDayInSeconds);
                 _gameState.Cash -= _cashDecreaseSpeed;
                 _gameState.PublicTrust -= _publicTrustDecreaseSpeed;
@@ -45,6 +51,16 @@ namespace Src
             _aiDevelopmentDecreaseSpeed -= aiDevelopmentDecreaseDelta;
             _publicTrustDecreaseSpeed -= publicTrustDecreaseDelta;
             _safetyDecreaseSpeed -= safetyDecreaseDelta;
+        }
+        
+        public void Pause()
+        {
+            _isPaused = true;
+        }
+        
+        public void Resume()
+        {
+            _isPaused = false;
         }
     
     }

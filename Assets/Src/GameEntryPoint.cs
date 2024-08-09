@@ -56,6 +56,7 @@ namespace Src
             aiDevelopmentDecreaseSpeed, 
             safetyDecreaseSpeed, 
             oneDayInSeconds);
+         gameStateUpdater.Pause();
          gameStateView.Init(_gameState, 
             publicTrustMaxValue, 
             aiDevelopmentMaxValue, 
@@ -76,6 +77,7 @@ namespace Src
          safetyUpgradesTreeUIBuilder.BuildTree(safetyTree);
          publicRelationsUpgradesTreeUIBuilder.BuildTree(publicRelationsTree);
          loadingScreen.SetActive(false);
+         gameStateUpdater.Resume();
       }
 
       private void OnDestroy()

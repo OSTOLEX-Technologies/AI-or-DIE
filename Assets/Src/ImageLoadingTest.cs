@@ -6,14 +6,21 @@ namespace Src
     public class ImageLoadingTest : MonoBehaviour
     {
         [SerializeField] private Image image;
+        [SerializeField] private string url;
         private Texture2D _texture;
 
         private async void Start()
         {
-            var url = "https://onlinejpgtools.com/images/examples-onlinejpgtools/random-grid.jpg";
-            _texture = await URLTexturesLoader.LoadTexture(url);
-            Debug.Log("Texture loaded: " + _texture.width + "x" + _texture.height + "px");
-            image.material.mainTexture = _texture;
+            _texture = await UrlTexturesLoader.LoadTexture(url);
+            if (_texture == null)
+            {
+                Debug.LogError("Failed to load texture");
+            }
+            else
+            {
+                Debug.Log("Texture loaded: " + _texture.width + "x" + _texture.height + "px");
+                image.material.mainTexture = _texture;
+            }
         }
         
         private void OnDestroy()

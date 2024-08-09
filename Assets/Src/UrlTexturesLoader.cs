@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 namespace Src
 {
-    public static class URLTexturesLoader 
+    public static class UrlTexturesLoader 
     {
         public static async Task<Texture2D> LoadTexture ( string url )
         {
