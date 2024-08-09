@@ -3318,50 +3318,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731182216}
   m_CullTransparentMesh: 1
---- !u!1 &744799198
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 744799199}
-  - component: {fileID: 744799200}
-  m_Layer: 0
-  m_Name: Upgrades Repository
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &744799199
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744799198}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &744799200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744799198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d857efa02affc418ee94241e2acafc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &745590635
 GameObject:
   m_ObjectHideFlags: 0
@@ -10582,7 +10538,6 @@ MonoBehaviour:
   safetyMaxValue: 2000
   gameStateUpdater: {fileID: 1991839735}
   gameStateView: {fileID: 1523542411}
-  upgradesRepository: {fileID: 744799200}
   developmentUpgradesTreeUIBuilder: {fileID: 1248272090}
   safetyUpgradesTreeUIBuilder: {fileID: 1958963855}
   publicRelationsUpgradesTreeUIBuilder: {fileID: 915114307}
@@ -10929,7 +10884,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1055916888}
   - {fileID: 348840317}
-  - {fileID: 744799199}
   - {fileID: 2125727972}
   - {fileID: 1991839736}
   - {fileID: 1523542412}

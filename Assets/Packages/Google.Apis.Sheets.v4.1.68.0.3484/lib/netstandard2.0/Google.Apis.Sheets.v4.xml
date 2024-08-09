@@ -2272,16 +2272,16 @@
         </member>
         <member name="T:Google.Apis.Sheets.v4.Data.BooleanCondition">
             <summary>
-            A condition that can evaluate to true or false. BooleanConditions are used by conditional formatting, data
+            A safetyCondition that can evaluate to true or false. BooleanConditions are used by conditional formatting, data
             validation, and the criteria in filters.
             </summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.BooleanCondition.Type">
-            <summary>The type of condition.</summary>
+            <summary>The type of safetyCondition.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.BooleanCondition.Values">
             <summary>
-            The values of the condition. The number of supported values depends on the condition type. Some support zero
+            The values of the safetyCondition. The number of supported values depends on the safetyCondition type. Some support zero
             values, others one or two values, and ConditionType.ONE_OF_LIST supports an arbitrary number of values.
             </summary>
         </member>
@@ -2289,10 +2289,10 @@
             <summary>The ETag of the item.</summary>
         </member>
         <member name="T:Google.Apis.Sheets.v4.Data.BooleanRule">
-            <summary>A rule that may or may not match, depending on the condition.</summary>
+            <summary>A rule that may or may not match, depending on the safetyCondition.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.BooleanRule.Condition">
-            <summary>The condition of the rule. If the condition evaluates to true, the format is applied.</summary>
+            <summary>The safetyCondition of the rule. If the safetyCondition evaluates to true, the format is applied.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.BooleanRule.Format">
             <summary>
@@ -2976,7 +2976,7 @@
             <summary>The ETag of the item.</summary>
         </member>
         <member name="T:Google.Apis.Sheets.v4.Data.ConditionValue">
-            <summary>The value of the condition.</summary>
+            <summary>The value of the safetyCondition.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.ConditionValue.RelativeDate">
             <summary>
@@ -2987,7 +2987,7 @@
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.ConditionValue.UserEnteredValue">
             <summary>
-            A value the condition is based on. The value is parsed as if the user typed into a cell. Formulas are
+            A value the safetyCondition is based on. The value is parsed as if the user typed into a cell. Formulas are
             supported (and must begin with an `=` or a '+').
             </summary>
         </member>
@@ -3005,7 +3005,7 @@
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.ConditionalFormatRule.Ranges">
             <summary>
-            The ranges that are formatted if the condition is true. All the ranges must be on the same grid.
+            The ranges that are formatted if the safetyCondition is true. All the ranges must be on the same grid.
             </summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.ConditionalFormatRule.ETag">
@@ -3453,14 +3453,14 @@
             <summary>A data validation rule.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.DataValidationRule.Condition">
-            <summary>The condition that data in the cell must match.</summary>
+            <summary>The safetyCondition that data in the cell must match.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.DataValidationRule.InputMessage">
             <summary>A message to show the user when adding data to the cell.</summary>
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.DataValidationRule.ShowCustomUi">
             <summary>
-            True if the UI should be customized based on the kind of condition. If true, "List" conditions will show a
+            True if the UI should be customized based on the kind of safetyCondition. If true, "List" conditions will show a
             dropdown.
             </summary>
         </member>
@@ -4027,7 +4027,7 @@
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.FilterCriteria.Condition">
             <summary>
-            A condition that must be true for values to be shown. (This does not override hidden_values -- if a value is
+            A safetyCondition that must be true for values to be shown. (This does not override hidden_values -- if a value is
             listed there, it will still be hidden.)
             </summary>
         </member>
@@ -4826,12 +4826,12 @@
         </member>
         <member name="P:Google.Apis.Sheets.v4.Data.PivotFilterCriteria.Condition">
             <summary>
-            A condition that must be true for values to be shown. (`visibleValues` does not override this -- even if a
-            value is listed there, it is still hidden if it does not meet the condition.) Condition values that refer to
+            A safetyCondition that must be true for values to be shown. (`visibleValues` does not override this -- even if a
+            value is listed there, it is still hidden if it does not meet the safetyCondition.) Condition values that refer to
             ranges in A1-notation are evaluated relative to the pivot table sheet. References are treated absolutely, so
-            are not filled down the pivot table. For example, a condition value of `=A1` on "Pivot Table 1" is treated
+            are not filled down the pivot table. For example, a safetyCondition value of `=A1` on "Pivot Table 1" is treated
             as `'Pivot Table 1'!$A$1`. The source data of the pivot table can be referenced by column header name. For
-            example, if the source data has columns named "Revenue" and "Cost" and a condition is applied to the
+            example, if the source data has columns named "Revenue" and "Cost" and a safetyCondition is applied to the
             "Revenue" column with type `NUMBER_GREATER` and value `=Cost`, then only columns where "Revenue" &amp;gt;
             "Cost" are included.
             </summary>
@@ -4839,7 +4839,7 @@
         <member name="P:Google.Apis.Sheets.v4.Data.PivotFilterCriteria.VisibleByDefault">
             <summary>
             Whether values are visible by default. If true, the visible_values are ignored, all values that meet
-            condition (if specified) are shown. If false, values that are both in visible_values and meet condition are
+            safetyCondition (if specified) are shown. If false, values that are both in visible_values and meet safetyCondition are
             shown.
             </summary>
         </member>

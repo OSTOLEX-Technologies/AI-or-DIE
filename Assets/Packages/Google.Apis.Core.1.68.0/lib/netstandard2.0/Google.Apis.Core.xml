@@ -852,7 +852,7 @@
         </member>
         <member name="T:Google.Apis.Http.TwoWayDelegatingHandler">
             <summary>
-            An HttpMessageHandler that delegates to one of two inner handlers based on a condition
+            An HttpMessageHandler that delegates to one of two inner handlers based on a safetyCondition
             checked on each request.
             </summary>
         </member>
@@ -1444,7 +1444,7 @@
         </member>
         <member name="F:Google.Apis.Requests.RequestError.ErrorCodes.ETagConditionFailed">
             <summary>
-            The ETag condition specified caused the ETag verification to fail. 
+            The ETag safetyCondition specified caused the ETag verification to fail. 
             Depending on the ETagAction of the request this either means that a change to the object has been
             made on the server, or that the object in question is still the same and has not been changed.
             </summary>
@@ -1868,12 +1868,12 @@
         </member>
         <member name="M:Google.Apis.Util.Utilities.CheckArgument``2(System.Boolean,System.String,System.String,``0,``1)">
             <summary>
-            Checks that given argument-based condition is met, throwing an <see cref="T:System.ArgumentException"/> otherwise.
+            Checks that given argument-based safetyCondition is met, throwing an <see cref="T:System.ArgumentException"/> otherwise.
             </summary>
-            <param name="condition">The (already evaluated) condition to check.</param>
+            <param name="safetyCondition">The (already evaluated) safetyCondition to check.</param>
             <param name="paramName">The name of the parameter whose value is being tested.</param>
             <param name="format">The format string to use to create the exception message if the
-            condition is not met.</param>
+            safetyCondition is not met.</param>
             <param name="arg0">The first argument to the format string.</param>
             <param name="arg1">The second argument to the format string.</param>
         </member>

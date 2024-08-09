@@ -13,38 +13,21 @@ using UnityEngine;
 
 namespace Src
 {
-    public class UpgradesRepository : MonoBehaviour
+    public class UpgradesRepository
     {
-        private const string serviceAccountEmail = "ai-or-die-service-account@ai-or-die.iam.gserviceaccount.com";
-        private const string spreadsheetId = "1frM0gL_PZMigqTeWsxSNAw0lJO4wS3eMmiMXXnZTtSk";
-        private const string credentailsFileName = "ai-or-die-f85e0531fb19";
-
-        private SheetsService _sheetsService;
+        private readonly SheetsService _sheetsService;
+        private readonly string _spreadsheetId;
         
-        public void Init()
+        public UpgradesRepository(SheetsService sheetsService, string spreadsheetId)
         {
-            Debug.Log("Loading credentials...");
-            TextAsset p12 = Resources.Load<TextAsset>(credentailsFileName);
-            var certificate = new X509Certificate2(p12.bytes, "notasecret", X509KeyStorageFlags.Exportable);
-        
-            Debug.Log("Creating credentials...");
-            ServiceAccountCredential credential = new ServiceAccountCredential(
-                new ServiceAccountCredential.Initializer(serviceAccountEmail)
-                {
-                    Scopes = new[] { SheetsService.Scope.SpreadsheetsReadonly } 
-                }.FromCertificate(certificate));
-            
-            Debug.Log("Creating service...");
-            _sheetsService = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-            });
+            _sheetsService = sheetsService;
+            _spreadsheetId = spreadsheetId;
         }
 
         public async Task<List<UpgradeNodeData>> GetUpgradeNodesData(string tableName)
         {
             Debug.Log("Loading upgrade nodes data...");
-            SpreadsheetsResource.ValuesResource.GetRequest request = _sheetsService.Spreadsheets.Values.Get(spreadsheetId, tableName);
+            SpreadsheetsResource.ValuesResource.GetRequest request = _sheetsService.Spreadsheets.Values.Get(_spreadsheetId, tableName);
             ValueRange response = await request.ExecuteAsync();
             IList<IList<object>> values = response.Values;
             List<UpgradeNodeData> upgradeNodesData = new List<UpgradeNodeData>();

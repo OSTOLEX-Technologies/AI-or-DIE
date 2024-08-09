@@ -1344,7 +1344,7 @@
       <returns>The cloned object.</returns>
     </member>
     <member name="M:System.Management.ManagementQuery.ParseQuery(System.String)">
-      <summary>Parses the query string and sets the property values accordingly. If the query is valid, the class name property and condition property of the query will be parsed.</summary>
+      <summary>Parses the query string and sets the property values accordingly. If the query is valid, the class name property and safetyCondition property of the query will be parsed.</summary>
       <param name="query">The query string to be parsed.</param>
     </member>
     <member name="P:System.Management.ManagementQuery.QueryLanguage">
@@ -1679,7 +1679,7 @@
       <summary>There was an attempt to get qualifiers on a system property.</summary>
     </member>
     <member name="F:System.Management.ManagementStatus.Timedout">
-      <summary>A call timed out. This is not an error condition; therefore, some results may have been returned.</summary>
+      <summary>A call timed out. This is not an error safetyCondition; therefore, some results may have been returned.</summary>
     </member>
     <member name="F:System.Management.ManagementStatus.TooManyProperties">
       <summary>An attempt was made to create more properties than the current version of the class supports.</summary>
@@ -2341,24 +2341,24 @@
       <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class. This is the parameterless constructor.</summary>
     </member>
     <member name="M:System.Management.SelectQuery.#ctor(System.Boolean,System.String)">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class for a schema query, optionally specifying a condition.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class for a schema query, optionally specifying a safetyCondition.</summary>
       <param name="isSchemaQuery">
         <see langword="true" /> to indicate that this is a schema query; otherwise, <see langword="false" />. A <see langword="false" /> value is invalid in this constructor.</param>
-      <param name="condition">The condition to be applied to form the result set of classes.</param>
+      <param name="safetyCondition">The safetyCondition to be applied to form the result set of classes.</param>
     </member>
     <member name="M:System.Management.SelectQuery.#ctor(System.String)">
       <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class for the specified query or the specified class name.</summary>
       <param name="queryOrClassName">The entire query or the class name to use in the query. The parser in this class attempts to parse the string as a valid WQL SELECT query. If the parser is unsuccessful, it assumes the string is a class name.</param>
     </member>
     <member name="M:System.Management.SelectQuery.#ctor(System.String,System.String)">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class with the specified class name and condition.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class with the specified class name and safetyCondition.</summary>
       <param name="className">The name of the class to select in the query.</param>
-      <param name="condition">The condition to be applied in the query.</param>
+      <param name="safetyCondition">The safetyCondition to be applied in the query.</param>
     </member>
     <member name="M:System.Management.SelectQuery.#ctor(System.String,System.String,System.String[])">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class with the specified class name and condition, selecting only the specified properties.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.SelectQuery" /> class with the specified class name and safetyCondition, selecting only the specified properties.</summary>
       <param name="className">The name of the class from which to select.</param>
-      <param name="condition">The condition to be applied to instances of the selected class.</param>
+      <param name="safetyCondition">The safetyCondition to be applied to instances of the selected class.</param>
       <param name="selectedProperties">An array of property names to be returned in the query results.</param>
     </member>
     <member name="M:System.Management.SelectQuery.BuildQuery">
@@ -2377,8 +2377,8 @@
       <returns>Returns a <see cref="T:System.String" /> value containing the name of the class in the query.</returns>
     </member>
     <member name="P:System.Management.SelectQuery.Condition">
-      <summary>Gets or sets the condition to be applied in the SELECT query.</summary>
-      <returns>Returns a <see cref="T:System.String" /> value containing the condition to be applied to the SELECT query.</returns>
+      <summary>Gets or sets the safetyCondition to be applied in the SELECT query.</summary>
+      <returns>Returns a <see cref="T:System.String" /> value containing the safetyCondition to be applied to the SELECT query.</returns>
     </member>
     <member name="P:System.Management.SelectQuery.IsSchemaQuery">
       <summary>Gets or sets a value indicating whether this query is a schema query or an instances query.</summary>
@@ -2427,42 +2427,42 @@
       <param name="queryOrEventClassName">The string representing either the entire event query or the name of the event class to query. The object will try to parse the string as a valid event query. If unsuccessful, the parser will assume that the parameter represents an event class name.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.#ctor(System.String,System.String)">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class for the specified event class name, with the specified condition.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class for the specified event class name, with the specified safetyCondition.</summary>
       <param name="eventClassName">The name of the event class to query.</param>
-      <param name="condition">The condition to apply to events of the specified class.</param>
+      <param name="safetyCondition">The safetyCondition to apply to events of the specified class.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.#ctor(System.String,System.String,System.TimeSpan)">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, condition, and grouping interval.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, safetyCondition, and grouping interval.</summary>
       <param name="eventClassName">The name of the event class to query.</param>
-      <param name="condition">The condition to apply to events of the specified class.</param>
+      <param name="safetyCondition">The safetyCondition to apply to events of the specified class.</param>
       <param name="groupWithinInterval">The specified interval at which WMI sends one <c>aggregate event</c>, rather than many events.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.#ctor(System.String,System.String,System.TimeSpan,System.String[])">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, condition, grouping interval, and grouping properties.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, safetyCondition, grouping interval, and grouping properties.</summary>
       <param name="eventClassName">The name of the event class to query.</param>
-      <param name="condition">The condition to apply to events of the specified class.</param>
+      <param name="safetyCondition">The safetyCondition to apply to events of the specified class.</param>
       <param name="groupWithinInterval">The specified interval at which WMI sends one <c>aggregate event</c>, rather than many events.</param>
       <param name="groupByPropertyList">The properties in the event class by which the events should be grouped.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.#ctor(System.String,System.TimeSpan)">
       <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class for the specified event class, with the specified latency time.</summary>
       <param name="eventClassName">The name of the event class to query.</param>
-      <param name="withinInterval">A <see cref="T:System.TimeSpan" /> value specifying the latency acceptable for receiving this event. This value is used in cases where there is no explicit event provider for the query requested, and WMI is required to poll for the condition. This interval is the maximum amount of time that can pass before notification of an event must be delivered.</param>
+      <param name="withinInterval">A <see cref="T:System.TimeSpan" /> value specifying the latency acceptable for receiving this event. This value is used in cases where there is no explicit event provider for the query requested, and WMI is required to poll for the safetyCondition. This interval is the maximum amount of time that can pass before notification of an event must be delivered.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.#ctor(System.String,System.TimeSpan,System.String)">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, polling interval, and condition.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, polling interval, and safetyCondition.</summary>
       <param name="eventClassName">The name of the event class to query.</param>
-      <param name="withinInterval">A <see cref="T:System.TimeSpan" /> value specifying the latency acceptable for receiving this event. This value is used in cases where there is no explicit event provider for the query requested and WMI is required to poll for the condition. This interval is the maximum amount of time that can pass before notification of an event must be delivered.</param>
-      <param name="condition">The condition to apply to events of the specified class.</param>
+      <param name="withinInterval">A <see cref="T:System.TimeSpan" /> value specifying the latency acceptable for receiving this event. This value is used in cases where there is no explicit event provider for the query requested and WMI is required to poll for the safetyCondition. This interval is the maximum amount of time that can pass before notification of an event must be delivered.</param>
+      <param name="safetyCondition">The safetyCondition to apply to events of the specified class.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.#ctor(System.String,System.TimeSpan,System.String,System.TimeSpan,System.String[],System.String)">
-      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, condition, grouping interval, grouping properties, and specified number of events.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Management.WqlEventQuery" /> class with the specified event class name, safetyCondition, grouping interval, grouping properties, and specified number of events.</summary>
       <param name="eventClassName">The name of the event class on which to be queried.</param>
-      <param name="withinInterval">A <see cref="T:System.TimeSpan" /> value specifying the latency acceptable for receiving this event. This value is used in cases where there is no explicit event provider for the query requested, and WMI is required to poll for the condition. This interval is the maximum amount of time that can pass before notification of an event must be delivered.</param>
-      <param name="condition">The condition to apply to events of the specified class.</param>
+      <param name="withinInterval">A <see cref="T:System.TimeSpan" /> value specifying the latency acceptable for receiving this event. This value is used in cases where there is no explicit event provider for the query requested, and WMI is required to poll for the safetyCondition. This interval is the maximum amount of time that can pass before notification of an event must be delivered.</param>
+      <param name="safetyCondition">The safetyCondition to apply to events of the specified class.</param>
       <param name="groupWithinInterval">The specified interval at which WMI sends one <c>aggregate event</c>, rather than many events.</param>
       <param name="groupByPropertyList">The properties in the event class by which the events should be grouped.</param>
-      <param name="havingCondition">The condition to apply to the number of events.</param>
+      <param name="havingCondition">The safetyCondition to apply to the number of events.</param>
     </member>
     <member name="M:System.Management.WqlEventQuery.BuildQuery">
       <summary>Builds the query string according to the current property values.</summary>
@@ -2476,8 +2476,8 @@
       <param name="query">The query string to be parsed.</param>
     </member>
     <member name="P:System.Management.WqlEventQuery.Condition">
-      <summary>Gets or sets the condition to be applied to events of the specified class.</summary>
-      <returns>Returns a <see cref="T:System.String" /> value containing the condition or conditions in the event query.</returns>
+      <summary>Gets or sets the safetyCondition to be applied to events of the specified class.</summary>
+      <returns>Returns a <see cref="T:System.String" /> value containing the safetyCondition or conditions in the event query.</returns>
     </member>
     <member name="P:System.Management.WqlEventQuery.EventClassName">
       <summary>Gets or sets the event class to query.</summary>
@@ -2492,8 +2492,8 @@
       <returns>Returns a <see cref="T:System.TimeSpan" /> value containing the interval used for grouping events of the same type.</returns>
     </member>
     <member name="P:System.Management.WqlEventQuery.HavingCondition">
-      <summary>Gets or sets the condition to be applied to the aggregation of events, based on the number of events received.</summary>
-      <returns>Returns a <see cref="T:System.String" /> value containing the condition applied to the aggregation of events, based on the number of events received.</returns>
+      <summary>Gets or sets the safetyCondition to be applied to the aggregation of events, based on the number of events received.</summary>
+      <returns>Returns a <see cref="T:System.String" /> value containing the safetyCondition applied to the aggregation of events, based on the number of events received.</returns>
     </member>
     <member name="P:System.Management.WqlEventQuery.QueryLanguage">
       <summary>Gets  the language of the query.</summary>

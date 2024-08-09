@@ -1763,7 +1763,7 @@
             <summary>
             Throws <see cref="T:System.InvalidOperationException"/> with <paramref name="message"/>
             if <paramref name="universeDomain"/> is not the default universe domain and
-            <paramref name="condition"/> is true.
+            <paramref name="safetyCondition"/> is true.
             </summary>
         </member>
         <member name="T:Google.Apis.Auth.OAuth2.GoogleClientSecrets">
