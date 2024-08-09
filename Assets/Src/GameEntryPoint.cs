@@ -19,22 +19,7 @@ namespace Src
       private const string credentailsFileName = "ai-or-die-f85e0531fb19";
       
       [SerializeField] private GameObject loadingScreen;
-      [Header("Initial game state values")]
-      [SerializeField] private int initialCash;
-      [SerializeField] private int initialPublicTrust;
-      [SerializeField] private int initialAiDevelopment;
-      [SerializeField] private int initialSafety;
-      [SerializeField] private string initialDate;
-      [Header("Initial change speed values")]
-      [SerializeField] private int cashDecreaseSpeed;
-      [SerializeField] private int publicTrustDecreaseSpeed;
-      [SerializeField] private int aiDevelopmentDecreaseSpeed;
-      [SerializeField] private int safetyDecreaseSpeed;
-      [SerializeField] private int oneDayInSeconds;
-      [Header("Stats max values")]
-      [SerializeField] private int publicTrustMaxValue;
-      [SerializeField] private int aiDevelopmentMaxValue;
-      [SerializeField] private int safetyMaxValue;
+      [SerializeField] private GameConfig gameConfig;
       [Header("Dependencies")]
       [SerializeField] private GameStateUpdater gameStateUpdater;
       [SerializeField] private GameStateView gameStateView;
@@ -55,17 +40,19 @@ namespace Src
       private async void Start()
       {
          loadingScreen.SetActive(true);
+         gameStateUpdater.Pause();
          InitializeSheetsService();
+         var gameConfigRepository = new GameConfigRepository(_sheetsService, spreadsheetId);
+         gameConfig = await gameConfigRepository.LoadGameConfig("Config");
          InitializeGameState();
          InitializeGameStateUpdater();
-         gameStateUpdater.Pause();
          InitializeGameStateView();
          await LoadAndBuildUpgradeTrees();
          _gameOverScenariosRepository = new GameOverScenariosRepository(_sheetsService, 
             spreadsheetId, 
-            aiDevelopmentMaxValue, 
-            safetyMaxValue, 
-            publicTrustMaxValue, 
+            gameConfig.AiDevelopmentMaxValue, 
+            gameConfig.SafetyMaxValue, 
+            gameConfig.PublicTrustMaxValue, 
             10000000);
          var scenarios = await _gameOverScenariosRepository.GetScenarios("Finale");
          foreach (var scenario in scenarios)
@@ -100,30 +87,30 @@ namespace Src
       {
          _gameState = new GameState
          {
-            Cash = initialCash,
-            PublicTrust = initialPublicTrust,
-            AiDevelopment = initialAiDevelopment,
-            Safety = initialSafety,
-            Date = DateTime.ParseExact(initialDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)
+            Cash = gameConfig.InitialCash,
+            PublicTrust = gameConfig.InitialPublicTrust,
+            AiDevelopment = gameConfig.InitialAiDevelopment,
+            Safety = gameConfig.InitialSafety,
+            Date = gameConfig.InitialDate
          };
       }
 
       private void InitializeGameStateUpdater()
       {
          gameStateUpdater.Init(_gameState, 
-            cashDecreaseSpeed, 
-            publicTrustDecreaseSpeed, 
-            aiDevelopmentDecreaseSpeed, 
-            safetyDecreaseSpeed, 
-            oneDayInSeconds);
+            gameConfig.CashDecreaseSpeed, 
+            gameConfig.PublicTrustDecreaseSpeed, 
+            gameConfig.AiDevelopmentDecreaseSpeed, 
+            gameConfig.SafetyDecreaseSpeed, 
+            gameConfig.OneDayInSeconds);
       }
 
       private void InitializeGameStateView()
       {
          gameStateView.Init(_gameState, 
-            publicTrustMaxValue, 
-            aiDevelopmentMaxValue, 
-            safetyMaxValue);
+            gameConfig.PublicTrustMaxValue, 
+            gameConfig.AiDevelopmentMaxValue, 
+            gameConfig.SafetyMaxValue);
       }
 
       private async Task LoadAndBuildUpgradeTrees()

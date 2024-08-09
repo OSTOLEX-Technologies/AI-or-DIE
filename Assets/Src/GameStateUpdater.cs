@@ -38,6 +38,11 @@ namespace Src
                     continue;
                 }
                 yield return new WaitForSeconds(_oneDayInSeconds);
+                if (_gameState == null)
+                {
+                    yield return null;
+                    continue;
+                }
                 _gameState.Cash -= _cashDecreaseSpeed;
                 _gameState.PublicTrust -= _publicTrustDecreaseSpeed;
                 _gameState.AiDevelopment -= _aiDevelopmentDecreaseSpeed;
