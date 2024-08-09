@@ -9,10 +9,12 @@ namespace Src.UpgradeNodes
         [SerializeField] private Color availableColor;
         [SerializeField] private Color boughtColor;
         [SerializeField] private Image image;
+        [SerializeField] private Image icon;
         
         private UpgradeNode _upgradeNode;
         private UpgradeNodeInfoPanel _infoPanel;
         private UpgradeNodeBuyButton _buyButton;
+        private Material _iconMaterial;
 
         
         public void Init(UpgradeNode upgradeNode, UpgradeNodeInfoPanel infoPanel, UpgradeNodeBuyButton buyButton)
@@ -23,6 +25,9 @@ namespace Src.UpgradeNodes
             _upgradeNode.Bought += OnBought;
             _upgradeNode.MadeAvailable += OnMadeAvailable;
             _buyButton.SetUpgradeNode(_upgradeNode);
+            _iconMaterial = Instantiate(icon.material);
+            _iconMaterial.mainTexture = upgradeNode.Data.Icon;
+            icon.material = _iconMaterial;
             UpdateView();
         }
         
@@ -41,14 +46,17 @@ namespace Src.UpgradeNodes
             if (_upgradeNode.IsBought)
             {
                 image.color = boughtColor;
+                icon.color = boughtColor;
             }
             else if (_upgradeNode.IsAvailable)
             {
                 image.color = availableColor;
+                icon.color = availableColor;
             }
             else
             {
                 image.color = lockedColor;
+                icon.color = lockedColor;
             }
         }
         
@@ -73,6 +81,7 @@ namespace Src.UpgradeNodes
         {
             _upgradeNode.Bought -= OnBought;
             _upgradeNode.MadeAvailable -= OnMadeAvailable;
+            Destroy(_iconMaterial);
         }
     }
 }
