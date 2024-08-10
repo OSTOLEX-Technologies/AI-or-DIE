@@ -24,6 +24,7 @@ namespace Src
       [SerializeField] private GameStateUpdater gameStateUpdater;
       [SerializeField] private GameStateView gameStateView;
       [SerializeField] private GameOverView gameOverView;
+      [SerializeField] private MoneyBubbleSpawner moneyBubbleSpawner;
       [Header("UI Builders")]
       [SerializeField] private UpgradesTreeUIBuilder developmentUpgradesTreeUIBuilder;
       [SerializeField] private UpgradesTreeUIBuilder safetyUpgradesTreeUIBuilder;
@@ -95,8 +96,12 @@ namespace Src
             10000000);
          var scenarios = await _gameOverScenariosRepository.GetScenarios("Finale");
          var gameOverChecker = new GameOverChecker(scenarios, gameOverView);
+         
+         moneyBubbleSpawner.Init(_gameState, gameConfig.CashBubbleAmount);
+         
          gameStateUpdater.Init(_gameState,
             gameOverChecker,
+            moneyBubbleSpawner,
             gameConfig.CashDecreaseSpeed, 
             gameConfig.PublicTrustDecreaseSpeed, 
             gameConfig.AiDevelopmentDecreaseSpeed, 

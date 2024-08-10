@@ -12,10 +12,12 @@ namespace Src
         private int _oneDayInSeconds;
         private GameState _gameState;
         private GameOverChecker _gameOverChecker;
+        private MoneyBubbleSpawner _moneyBubbleSpawner;
         private bool _isPaused;
 
         public void Init(GameState gameState, 
             GameOverChecker gameOverChecker,
+            MoneyBubbleSpawner moneyBubbleSpawner,
             int cashDecreaseSpeed, 
             int publicTrustDecreaseSpeed, 
             int aiDevelopmentDecreaseSpeed, 
@@ -24,6 +26,7 @@ namespace Src
         {
             _gameState = gameState;
             _gameOverChecker = gameOverChecker;
+            _moneyBubbleSpawner = moneyBubbleSpawner;
             _cashDecreaseSpeed = cashDecreaseSpeed;
             _publicTrustDecreaseSpeed = publicTrustDecreaseSpeed;
             _aiDevelopmentDecreaseSpeed = aiDevelopmentDecreaseSpeed;
@@ -56,6 +59,7 @@ namespace Src
                 _gameState.AiDevelopment -= _aiDevelopmentDecreaseSpeed;
                 _gameState.Safety -= _safetyDecreaseSpeed;
                 _gameState.Date = _gameState.Date.AddDays(1);
+                _moneyBubbleSpawner.TrySpawn();
                 if (_gameOverChecker.CheckGameOver(_gameState))
                 {
                     break;
