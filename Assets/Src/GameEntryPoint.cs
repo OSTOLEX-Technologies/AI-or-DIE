@@ -23,6 +23,7 @@ namespace Src
       [Header("Dependencies")]
       [SerializeField] private GameStateUpdater gameStateUpdater;
       [SerializeField] private GameStateView gameStateView;
+      [SerializeField] private GameOverView gameOverView;
       [Header("UI Builders")]
       [SerializeField] private UpgradesTreeUIBuilder developmentUpgradesTreeUIBuilder;
       [SerializeField] private UpgradesTreeUIBuilder safetyUpgradesTreeUIBuilder;
@@ -45,20 +46,9 @@ namespace Src
          var gameConfigRepository = new GameConfigRepository(_sheetsService, spreadsheetId);
          gameConfig = await gameConfigRepository.LoadGameConfig("Config");
          InitializeGameState();
-         InitializeGameStateUpdater();
+         await InitializeGameStateUpdater();
          InitializeGameStateView();
          await LoadAndBuildUpgradeTrees();
-         _gameOverScenariosRepository = new GameOverScenariosRepository(_sheetsService, 
-            spreadsheetId, 
-            gameConfig.AiDevelopmentMaxValue, 
-            gameConfig.SafetyMaxValue, 
-            gameConfig.PublicTrustMaxValue, 
-            10000000);
-         var scenarios = await _gameOverScenariosRepository.GetScenarios("Finale");
-         foreach (var scenario in scenarios)
-         {
-            Debug.Log(scenario);
-         }
          loadingScreen.SetActive(false);
          gameStateUpdater.Resume();
       }
@@ -95,9 +85,18 @@ namespace Src
          };
       }
 
-      private void InitializeGameStateUpdater()
+      private async Task InitializeGameStateUpdater()
       {
-         gameStateUpdater.Init(_gameState, 
+         _gameOverScenariosRepository = new GameOverScenariosRepository(_sheetsService, 
+            spreadsheetId, 
+            gameConfig.AiDevelopmentMaxValue, 
+            gameConfig.SafetyMaxValue, 
+            gameConfig.PublicTrustMaxValue, 
+            10000000);
+         var scenarios = await _gameOverScenariosRepository.GetScenarios("Finale");
+         var gameOverChecker = new GameOverChecker(scenarios, gameOverView);
+         gameStateUpdater.Init(_gameState,
+            gameOverChecker,
             gameConfig.CashDecreaseSpeed, 
             gameConfig.PublicTrustDecreaseSpeed, 
             gameConfig.AiDevelopmentDecreaseSpeed, 

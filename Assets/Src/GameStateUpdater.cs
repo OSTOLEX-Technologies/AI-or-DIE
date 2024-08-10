@@ -11,11 +11,19 @@ namespace Src
         private int _safetyDecreaseSpeed;
         private int _oneDayInSeconds;
         private GameState _gameState;
+        private GameOverChecker _gameOverChecker;
         private bool _isPaused;
 
-        public void Init(GameState gameState, int cashDecreaseSpeed, int publicTrustDecreaseSpeed, int aiDevelopmentDecreaseSpeed, int safetyDecreaseSpeed, int oneDayInSeconds)
+        public void Init(GameState gameState, 
+            GameOverChecker gameOverChecker,
+            int cashDecreaseSpeed, 
+            int publicTrustDecreaseSpeed, 
+            int aiDevelopmentDecreaseSpeed, 
+            int safetyDecreaseSpeed, 
+            int oneDayInSeconds)
         {
             _gameState = gameState;
+            _gameOverChecker = gameOverChecker;
             _cashDecreaseSpeed = cashDecreaseSpeed;
             _publicTrustDecreaseSpeed = publicTrustDecreaseSpeed;
             _aiDevelopmentDecreaseSpeed = aiDevelopmentDecreaseSpeed;
@@ -48,6 +56,11 @@ namespace Src
                 _gameState.AiDevelopment -= _aiDevelopmentDecreaseSpeed;
                 _gameState.Safety -= _safetyDecreaseSpeed;
                 _gameState.Date = _gameState.Date.AddDays(1);
+                if (_gameOverChecker.CheckGameOver(_gameState))
+                {
+                    break;
+                }
+                Debug.Log(_gameState);
             }
         }
         

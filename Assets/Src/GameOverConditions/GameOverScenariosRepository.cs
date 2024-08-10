@@ -49,9 +49,9 @@ namespace Src.GameOverConditions
                     {
                         var name = row[0].ToString();
                         var cashCondition = ParseToCondition(row[1].ToString(), _cashMaxValue);
-                        var aiDevelopmentCondition = ParseToCondition(row[2].ToString(), _aiDevelopmentMaxValue);
+                        var publicTrustCondition = ParseToCondition(row[2].ToString(), _publicTrustMaxValue);
                         var safetyCondition = ParseToCondition(row[3].ToString(), _safetyMaxValue);
-                        var publicTrustCondition = ParseToCondition(row[4].ToString(), _publicTrustMaxValue);
+                        var aiDevelopmentCondition = ParseToCondition(row[4].ToString(), _aiDevelopmentMaxValue);
                         var description = row[5].ToString();
                         var imageUrl = row[6].ToString();
                         var imageTexture = await UrlTexturesLoader.LoadTexture(imageUrl);
