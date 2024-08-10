@@ -23,5 +23,5 @@ Players make strategic decisions about AI research, policy, and deployment, faci
 ![Tree   action buy screen](https://github.com/user-attachments/assets/b09602c1-5f92-4294-9c79-c3b39120a666)
 
 #### Key Features:
-Decision-Making: "Players choose how to develop AI, balancing innovation with caution.
-Resource Management: "Manage resources like funding, public trust, and research progress.
+Decision-Making: Players choose how to develop AI, balancing innovation with caution.
+Resource Management: Manage resources like funding, public trust, and research progress.
