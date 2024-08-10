@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Src.UpgradeNodes
@@ -10,12 +11,13 @@ namespace Src.UpgradeNodes
         [SerializeField] private Color boughtColor;
         [SerializeField] private Image image;
         [SerializeField] private Image icon;
-        
+
         private UpgradeNode _upgradeNode;
         private UpgradeNodeInfoPanel _infoPanel;
         private UpgradeNodeBuyButton _buyButton;
         private Material _iconMaterial;
-
+        
+        public List<UpgradeNodeView> Children { get; } = new List<UpgradeNodeView>();
         
         public void Init(UpgradeNode upgradeNode, UpgradeNodeInfoPanel infoPanel, UpgradeNodeBuyButton buyButton)
         {

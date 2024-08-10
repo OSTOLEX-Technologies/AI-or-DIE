@@ -11,7 +11,7 @@ namespace Src.UpgradeNodes
         private GameStateUpdater _gameStateUpdater;
         private bool _isBought;
         private UpgradeNode _previousNode;
-        
+
         public UpgradeNodeData Data { get; }
 
         [CanBeNull]

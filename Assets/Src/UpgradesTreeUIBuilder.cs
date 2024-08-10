@@ -8,7 +8,7 @@ namespace Src
     public class UpgradesTreeUIBuilder : MonoBehaviour
     {
         [SerializeField] private Transform nodesParent;
-        [SerializeField] private Transform rootPosition;
+        [SerializeField] private Transform rootTransform;
         [SerializeField] private float heightBetweenLevels;
         [SerializeField] private float widthBetweenNodes;
         [SerializeField] private UpgradeNodeView nodePrefab;
@@ -16,8 +16,69 @@ namespace Src
         [SerializeField] private Transform connectionsParent;
         [SerializeField] private UpgradeNodeInfoPanel infoPanel;
         [SerializeField] private UpgradeNodeBuyButton buyButton;
+
+        private UpgradeNodeView _rootNodeView;
         
         public void BuildTree(UpgradeNode rootUpgradeNode)
+        {
+            InstantiateViewsTree(rootUpgradeNode);
+            PositionNodes();
+            BuildConnections(_rootNodeView);
+        }
+        
+        private void InstantiateViewsTree(UpgradeNode rootUpgradeNode)
+        {
+            _rootNodeView = CreateNodeView(rootUpgradeNode);
+            foreach (var child in rootUpgradeNode.NextNodes)
+            {
+                InstantiateViewsTree(_rootNodeView, child);
+            }
+        }
+
+        private void InstantiateViewsTree(UpgradeNodeView previousNodeView, UpgradeNode leafNode)
+        {
+            var leafNodeView = CreateNodeView(leafNode);
+            previousNodeView.Children.Add(leafNodeView);
+            foreach (var child in leafNode.NextNodes)
+            {
+                InstantiateViewsTree(leafNodeView, child);
+            }
+        }
+
+        private void PositionNodes()
+        {
+            var rootPosition = rootTransform.position;
+            _rootNodeView.transform.position = rootPosition;
+            var nextLevelCenter = rootPosition + Vector3.up * heightBetweenLevels;
+            var nextLevelNodes = _rootNodeView.Children.ToList();
+            if (nextLevelNodes.Any())
+            {
+                PositionNodes(nextLevelCenter, nextLevelNodes);
+            }
+        }
+
+        private void PositionNodes(Vector3 levelCenter, List<UpgradeNodeView> nodes)
+        {
+            AlignHorizontally(levelCenter, nodes, widthBetweenNodes);
+            var nextLevelCenter = levelCenter + Vector3.up * heightBetweenLevels;
+            var nextLevelNodes = nodes.SelectMany(node => node.Children).ToList();
+            if (nextLevelNodes.Any())
+            {
+                PositionNodes(nextLevelCenter, nextLevelNodes);
+            }
+        }
+
+        private void BuildConnections(UpgradeNodeView node)
+        {
+            foreach (var child in node.Children)
+            {
+                BuildConnection(node.transform, child.transform);
+                BuildConnections(child);
+            }
+        }
+        
+        
+        /*public void BuildTree(UpgradeNode rootUpgradeNode)
         {
             var rootNodeView = Instantiate(nodePrefab, parent: nodesParent);
             rootNodeView.Init(rootUpgradeNode, infoPanel, buyButton);
@@ -36,6 +97,11 @@ namespace Src
 
         private (List<Transform> transforms, List<UpgradeNode> nodes) BuildNextLevel(Vector3 nextLevelCenter, List<UpgradeNode> currentLevelNodes, List<Transform> currentLevelNodesTransforms)
         {
+            foreach (var node in currentLevelNodes)
+            {
+                
+            }
+            
             //Creating game objects for next level nodes
             var children = currentLevelNodes.SelectMany(node => node.NextNodes).ToList();
             var childrenTransforms = new List<Transform>();
@@ -63,9 +129,16 @@ namespace Src
             }
             
             return (childrenTransforms, children);
+        }*/
+        
+        private UpgradeNodeView CreateNodeView(UpgradeNode node)
+        {
+            var nodeView = Instantiate(nodePrefab, parent: nodesParent);
+            nodeView.Init(node, infoPanel, buyButton);
+            return nodeView;
         }
         
-        private void AlignHorizontally(Vector3 center, List<Transform> toAlign, float distanceBetween)
+        private void AlignHorizontally(Vector3 center, List<UpgradeNodeView> toAlign, float distanceBetween)
         {
             var centerPosition = center;
             var count = toAlign.Count;
@@ -73,10 +146,10 @@ namespace Src
             var left = centerPosition.x - totalWidth / 2 + distanceBetween/2;
             for (var i = 0; i < count; i++)
             {
-                var position = toAlign[i].position;
+                var position = toAlign[i].transform.position;
                 position.x = left + i * distanceBetween;
                 position.y = centerPosition.y;
-                toAlign[i].position = position;
+                toAlign[i].transform.position = position;
             }
         }
 
