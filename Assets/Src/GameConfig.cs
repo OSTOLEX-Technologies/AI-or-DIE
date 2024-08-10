@@ -19,5 +19,6 @@ namespace Src
         public int AiDevelopmentMaxValue;
         public int SafetyMaxValue;
         public int CashBubbleAmount;
+        public int CashBubbleSpawnProbability;
     }
 }

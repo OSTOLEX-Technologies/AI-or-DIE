@@ -97,7 +97,7 @@ namespace Src
          var scenarios = await _gameOverScenariosRepository.GetScenarios("Finale");
          var gameOverChecker = new GameOverChecker(scenarios, gameOverView);
          
-         moneyBubbleSpawner.Init(_gameState, gameConfig.CashBubbleAmount);
+         moneyBubbleSpawner.Init(_gameState, gameConfig.CashBubbleAmount, gameConfig.CashBubbleSpawnProbability);
          
          gameStateUpdater.Init(_gameState,
             gameOverChecker,

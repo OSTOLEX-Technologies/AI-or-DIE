@@ -6,20 +6,21 @@ namespace Src
     {
         [SerializeField] private RectTransform spawnArea;
         [SerializeField] private MoneyBubble moneyBubblePrefab;
-        [SerializeField] private int spawnProbability;
-
+        
+        private int _spawnProbability;
         private GameState _gameState;
         private int _moneyAmount;
         
-        public void Init(GameState gameState, int moneyAmount)
+        public void Init(GameState gameState, int moneyAmount, int spawnProbability)
         {
             _gameState = gameState;
             _moneyAmount = moneyAmount;
+            _spawnProbability = spawnProbability;
         }
         
         public void TrySpawn()
         {
-            if (Random.Range(0, 100) > spawnProbability)
+            if (Random.Range(0, 100) > _spawnProbability)
             {
                 return;
             }

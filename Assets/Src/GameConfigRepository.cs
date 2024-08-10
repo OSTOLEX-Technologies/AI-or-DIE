@@ -37,6 +37,7 @@ namespace Src
             var aiDevelopmentMaxValue = int.Parse(values[12][1].ToString());
             var safetyMaxValue = int.Parse(values[13][1].ToString());
             var cashBubbleAmount = int.Parse(values[14][1].ToString());
+            var cashBubbleSpawnProbability = int.Parse(values[15][1].ToString());
             return new GameConfig()
             {
                 InitialCash = initialCash,
@@ -52,7 +53,8 @@ namespace Src
                 PublicTrustMaxValue = publicTrustMaxValue,
                 AiDevelopmentMaxValue = aiDevelopmentMaxValue,
                 SafetyMaxValue = safetyMaxValue,
-                CashBubbleAmount = cashBubbleAmount
+                CashBubbleAmount = cashBubbleAmount,
+                CashBubbleSpawnProbability = cashBubbleSpawnProbability
             };
         }
     }
