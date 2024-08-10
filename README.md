@@ -24,4 +24,5 @@ Players make strategic decisions about AI research, policy, and deployment, faci
 
 #### Key Features:
 Decision-Making: Players choose how to develop AI, balancing innovation with caution.
+
 Resource Management: Manage resources like funding, public trust, and research progress.
